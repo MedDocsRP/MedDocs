@@ -497,7 +497,7 @@ dialog::backdrop{
 .document-card:hover .document-title:after{opacity:1;transform:translateX(2px)}
 .new-badge{position:absolute;top:12px;right:12px;padding:5px 8px;border:1px solid rgba(157,139,255,.55);border-radius:999px;background:rgba(123,92,255,.16);color:#d8d0ff;font-size:9px;font-weight:900;letter-spacing:.8px;box-shadow:0 0 16px rgba(123,92,255,.18)}
 .coming-card{position:relative;overflow:hidden;opacity:1;background:linear-gradient(145deg,rgba(23,23,36,.86),rgba(13,13,22,.82));border-color:#343448}
-.coming-card:before{content:"v1.4";position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:74px;font-weight:900;color:rgba(123,92,255,.055);pointer-events:none}
+.coming-card:before{content:"v1.5";position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:74px;font-weight:900;color:rgba(123,92,255,.055);pointer-events:none}
 .coming-card:after{content:"W PRZYGOTOWANIU";display:inline-block;margin-top:12px;padding:5px 9px;border:1px solid #3a3654;border-radius:999px;color:#a99cff;font-size:9px;font-weight:900;letter-spacing:1px}
 .lobby-footer{border-top:0;position:relative}
 .lobby-footer:before{content:"";position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,#343448,transparent)}
@@ -517,6 +517,32 @@ dialog::backdrop{
         grid-template-columns:1fr;
     }
 }
+
+
+/* ===== v1.4 — LOBBY / ŻYWE TŁO ===== */
+body{position:relative;overflow-x:hidden;background:#090910}
+body::before,body::after{content:"";position:fixed;width:620px;height:620px;border-radius:50%;filter:blur(95px);opacity:.20;pointer-events:none;z-index:-2;animation:meddocsFloat 18s ease-in-out infinite alternate}
+body::before{left:-180px;top:-180px;background:#7657ff}
+body::after{right:-220px;bottom:-220px;background:#245dff;animation-duration:23s;animation-direction:alternate-reverse}
+@keyframes meddocsFloat{0%{transform:translate(0,0) scale(1)}50%{transform:translate(90px,55px) scale(1.08)}100%{transform:translate(25px,130px) scale(.94)}}
+.logo{text-shadow:0 0 34px rgba(123,92,255,.22)}
+.category-block{margin-top:34px}
+.category-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;max-width:1000px;margin:0 auto 6px;text-align:left}
+.category-heading h2{margin:0;border:0;padding:0;font-size:18px}
+.category-heading span{font-size:12px;color:#77778b}
+.category-desc{max-width:1000px;margin:0 auto 16px;text-align:left;color:#88889b;font-size:13px}
+.document-card{position:relative;overflow:hidden;backdrop-filter:blur(12px);background:rgba(24,24,37,.78)}
+.document-card::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#795cff,#3d6dff,transparent);opacity:.7}
+.new-badge{position:absolute;right:11px;top:10px;padding:5px 8px;border:1px solid rgba(123,92,255,.55);border-radius:999px;background:rgba(123,92,255,.15);color:#d8d1ff;font-size:9px;font-weight:900;letter-spacing:.7px}
+.rescue-card{border-color:rgba(123,92,255,.35)}
+.coming-card{position:relative;overflow:hidden;opacity:1;background:rgba(17,17,27,.62);backdrop-filter:blur(12px)}
+.coming-card::after{content:"";position:absolute;right:-8px;bottom:-30px;font-size:92px;font-weight:900;color:rgba(123,92,255,.055);pointer-events:none}
+.preview-button{padding:14px;border:1px solid rgba(123,92,255,.5);border-radius:10px;background:#1c1930;color:#ddd8ff;font-weight:800}
+.preview-button:hover{background:#26213e}
+.buttons-row.three{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:650px){.category-heading,.category-desc{text-align:center}.category-heading{display:block}.category-heading span{display:block;margin-top:5px}.buttons-row.three{grid-template-columns:1fr}}
+.km-checks{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.km-checks label{display:flex;align-items:center;gap:8px;margin:0;padding:9px;border:1px solid #353545;border-radius:8px;background:#101018;font-weight:500}.km-checks input{width:auto;margin:0}@media(max-width:650px){.km-checks{grid-template-columns:1fr}}
+
 </style>
 </head>
 
@@ -531,7 +557,7 @@ dialog::backdrop{
 
 <h1 class="logo">Med<span>Docs</span></h1>
 <p class="subtitle">Medical Documents for RP</p>
-<div class="version">v1.3</div>
+<div class="version">v1.4</div>
 
 <div class="lobby-menu">
     <button type="button" onclick="openDialog('aboutDialog')">O MedDocs</button>
@@ -541,56 +567,32 @@ dialog::backdrop{
 </div>
 
 <div class="lobby-status">
-    <strong>v1.3</strong> • Zwolnienia i zaświadczenia
+    <strong>v1.4</strong> • Ratownictwo medyczne gotowe!
 </div>
 
 <div class="choose-title">Wybierz dokument</div>
-<div class="document-counter">Dostępne dokumenty: 4</div>
+<div class="document-counter">7 dokumentów • 2 kategorie</div>
 
-<div class="documents">
-
-<button type="button" class="document-card"
-        onclick="otworzStrone('receptaPage','dataWystawienia')">
-    <div class="document-icon">💊</div>
-    <div class="document-title">Recepta</div>
-    <div class="document-description">Fikcyjna recepta</div>
-</button>
-
-<button type="button" class="document-card"
-        onclick="otworzStrone('skierowaniePage','sk_dataWystawienia')">
-    <div class="document-icon">📄</div>
-    <div class="document-title">Skierowanie</div>
-    <div class="document-description">Konsultacja, badanie lub leczenie</div>
-</button>
-
-<button type="button" class="document-card"
-        onclick="otworzStrone('zwolnieniePage','zw_data')">
-    <div class="new-badge">NOWE</div>
-    <div class="document-icon">📆</div>
-    <div class="document-title">Zwolnienie</div>
-    <div class="document-description">Fikcyjne zwolnienie lekarskie</div>
-</button>
-
-<button type="button" class="document-card"
-        onclick="otworzStrone('zaswiadczeniePage','za_data')">
-    <div class="new-badge">NOWE</div>
-    <div class="document-icon">🩺</div>
-    <div class="document-title">Zaświadczenie</div>
-    <div class="document-description">Fikcyjne zaświadczenie lekarskie</div>
-</button>
-
-</div>
-
-<div class="coming-section">
-    <div class="coming-title">Następna aktualizacja</div>
-    <div class="coming-card">
-        <div class="coming-icon">🚑</div>
-        <div class="coming-name">v1.4 — Ratownictwo medyczne</div>
-        <div class="coming-version">
-            KMCR • Karta zgonu • Odmowa transportu / hospitalizacji
-        </div>
+<div class="category-block">
+    <div class="category-heading"><h2>📋 Dokumenty medyczne</h2><span>4 dokumenty</span></div>
+    <div class="category-desc">Podstawowe dokumenty medyczne do scenariuszy.</div>
+    <div class="documents">
+        <button type="button" class="document-card" onclick="otworzStrone('receptaPage','dataWystawienia')"><div class="document-icon">💊</div><div class="document-title">Recepta</div><div class="document-description">Recepta medyczna</div></button>
+        <button type="button" class="document-card" onclick="otworzStrone('skierowaniePage','sk_dataWystawienia')"><div class="document-icon">📄</div><div class="document-title">Skierowanie</div><div class="document-description">Konsultacja, badanie lub leczenie</div></button>
+        <button type="button" class="document-card" onclick="otworzStrone('zwolnieniePage','zw_data')"><div class="document-icon">📆</div><div class="document-title">Zwolnienie</div><div class="document-description">Zwolnienie lekarskie</div></button>
+        <button type="button" class="document-card" onclick="otworzStrone('zaswiadczeniePage','za_data')"><div class="document-icon">🩺</div><div class="document-title">Zaświadczenie</div><div class="document-description">Zaświadczenie lekarskie</div></button>
     </div>
 </div>
+<div class="category-block">
+    <div class="category-heading"><h2>🚑 Ratownictwo medyczne</h2><span>3 dokumenty • NOWE</span></div>
+    <div class="category-desc">Dokumentacja działań zespołu ratownictwa w scenariuszach.</div>
+    <div class="documents">
+        <button type="button" class="document-card rescue-card" onclick="otworzStrone('kmcrPage','km_data')"><span class="new-badge">NOWE</span><div class="document-icon">🚑</div><div class="document-title">KMCR</div><div class="document-description">Karta medycznych czynności ratunkowych</div></button>
+        <button type="button" class="document-card rescue-card" onclick="otworzStrone('odmowaPage','ot_data')"><span class="new-badge">NOWE</span><div class="document-icon">✋</div><div class="document-title">Odmowa transportu</div><div class="document-description">Odmowa transportu / hospitalizacji</div></button>
+        <button type="button" class="document-card rescue-card" onclick="otworzStrone('zgonPage','kz_data')"><span class="new-badge">NOWE</span><div class="document-icon">🕯️</div><div class="document-title">Karta zgonu</div><div class="document-description">Dokument scenariusza medycznego</div></button>
+    </div>
+</div>
+<div class="coming-section"><div class="coming-title">Następna aktualizacja</div><div class="coming-card"><div class="coming-icon">🏥</div><div class="coming-name">v1.5 — Dokumentacja szpitalna</div><div class="coming-version">Przyjęcie • Wypis • Karta informacyjna leczenia</div></div></div>
 
 <div class="lobby-footer">
     Stworzone przez Kompendium Medyczne „Medycyna” • Dokumenty przeznaczone wyłącznie do roleplay.
@@ -634,16 +636,16 @@ dialog::backdrop{
 <div class="grid-2">
     <div>
         <label class="required">Imię</label>
-        <input id="imie" placeholder="Fikcyjne dane">
+        <input id="imie" placeholder="Fikcyjne dane RP">
     </div>
     <div>
         <label class="required">Nazwisko</label>
-        <input id="nazwisko" placeholder="Fikcyjne dane">
+        <input id="nazwisko" placeholder="Fikcyjne dane RP">
     </div>
 </div>
 
 <label>PESEL</label>
-<input id="pesel" maxlength="11" placeholder="Fikcyjny PESEL do">
+<input id="pesel" maxlength="11" placeholder="PESEL">
 
 <div class="grid-2">
     <div>
@@ -652,7 +654,7 @@ dialog::backdrop{
     </div>
     <div>
         <label>Adres</label>
-        <input id="adres" placeholder="Fikcyjny adres">
+        <input id="adres" placeholder="Adres">
     </div>
 </div>
 
@@ -712,28 +714,28 @@ dialog::backdrop{
 <h3>Osoba wystawiająca</h3>
 
 <label class="required">Imię i nazwisko</label>
-<input id="lekarz" placeholder="Fikcyjna postać">
+<input id="lekarz" placeholder="Osoba wystawiająca">
 
 <label>Specjalizacja</label>
 <input id="specjalizacja">
 
 <label class="required">Numer PWZ</label>
-<input id="numerLekarza" placeholder="Fikcyjny numer PWZ do">
+<input id="numerLekarza" placeholder="Numer PWZ">
 
 <label>Placówka</label>
-<input id="placowka" placeholder="Fikcyjna placówka">
+<input id="placowka" placeholder="Placówka">
 
 <label>Adres placówki</label>
-<input id="adresPlacowki" placeholder="Fikcyjny adres">
+<input id="adresPlacowki" placeholder="Adres">
 
 <div class="grid-2">
     <div>
         <label>Telefon placówki</label>
-        <input id="telefonPlacowki" placeholder="Fikcyjny numer">
+        <input id="telefonPlacowki" placeholder="Numer telefonu">
     </div>
     <div>
         <label>E-mail placówki</label>
-        <input id="emailPlacowki" type="email" placeholder="Fikcyjny e-mail">
+        <input id="emailPlacowki" type="email" placeholder="E-mail">
     </div>
 </div>
 
@@ -749,12 +751,12 @@ dialog::backdrop{
     </button>
 </div>
 
-<h3>Pieczątka</h3>
+<h3>Pieczątka RP</h3>
 
 <input id="stampInput" type="file" accept="image/png,image/jpeg,image/webp">
 
 <div class="hint">
-    PNG, JPG lub WEBP, maksymalnie 5 MB.
+    PNG, JPG lub WEBP, maksymalnie 5 MB. Wyłącznie fikcyjna pieczątka RP.
 </div>
 
 <div id="stampPreview" class="stamp-preview">
@@ -814,16 +816,16 @@ dialog::backdrop{
 <div class="grid-2">
     <div>
         <label class="required">Imię</label>
-        <input id="sk_imie" placeholder="Fikcyjne dane">
+        <input id="sk_imie" placeholder="Fikcyjne dane RP">
     </div>
     <div>
         <label class="required">Nazwisko</label>
-        <input id="sk_nazwisko" placeholder="Fikcyjne dane">
+        <input id="sk_nazwisko" placeholder="Fikcyjne dane RP">
     </div>
 </div>
 
 <label>PESEL</label>
-<input id="sk_pesel" maxlength="11" placeholder="Fikcyjny PESEL do">
+<input id="sk_pesel" maxlength="11" placeholder="PESEL">
 
 <div class="grid-2">
     <div>
@@ -832,7 +834,7 @@ dialog::backdrop{
     </div>
     <div>
         <label>Adres</label>
-        <input id="sk_adres" placeholder="Fikcyjny adres">
+        <input id="sk_adres" placeholder="Adres">
     </div>
 </div>
 
@@ -869,7 +871,7 @@ dialog::backdrop{
     </div>
 </div>
 
-<label>Rozpoznanie / podejrzenie</label>
+<label>Rozpoznanie / podejrzenie RP</label>
 <textarea id="sk_rozpoznanie"></textarea>
 
 <label class="required">Powód skierowania</label>
@@ -881,13 +883,13 @@ dialog::backdrop{
 <h3>Osoba wystawiająca</h3>
 
 <label class="required">Imię i nazwisko</label>
-<input id="sk_lekarz" placeholder="Fikcyjna postać">
+<input id="sk_lekarz" placeholder="Osoba wystawiająca">
 
 <label>Specjalizacja</label>
 <input id="sk_specjalizacja">
 
 <label class="required">Numer PWZ</label>
-<input id="sk_numerLekarza" placeholder="Fikcyjny numer PWZ do">
+<input id="sk_numerLekarza" placeholder="Numer PWZ">
 
 <label>Placówka kierująca</label>
 <input id="sk_placowka">
@@ -918,7 +920,7 @@ dialog::backdrop{
     </button>
 </div>
 
-<h3>Pieczątka</h3>
+<h3>Pieczątka RP</h3>
 
 <input id="sk_stampInput" type="file" accept="image/png,image/jpeg,image/webp">
 
@@ -979,17 +981,17 @@ dialog::backdrop{
 <div class="grid-2">
     <div>
         <label class="required">Imię</label>
-        <input id="zw_imie" placeholder="Fikcyjne dane">
+        <input id="zw_imie" placeholder="Fikcyjne dane RP">
     </div>
 
     <div>
         <label class="required">Nazwisko</label>
-        <input id="zw_nazwisko" placeholder="Fikcyjne dane">
+        <input id="zw_nazwisko" placeholder="Fikcyjne dane RP">
     </div>
 </div>
 
 <label>PESEL</label>
-<input id="zw_pesel" maxlength="11" placeholder="Fikcyjny PESEL do">
+<input id="zw_pesel" maxlength="11" placeholder="PESEL">
 
 <div class="grid-2">
     <div>
@@ -999,7 +1001,7 @@ dialog::backdrop{
 
     <div>
         <label>Adres</label>
-        <input id="zw_adres" placeholder="Fikcyjny adres">
+        <input id="zw_adres" placeholder="Adres">
     </div>
 </div>
 
@@ -1032,13 +1034,13 @@ dialog::backdrop{
         <select id="zw_rodzaj">
             <option>Niezdolność do pracy</option>
             <option>Niezdolność do nauki</option>
-            <option>Inne</option>
+            <option>Inne — RP</option>
         </select>
     </div>
 </div>
 
-<label>Rozpoznanie / informacja</label>
-<textarea id="zw_rozpoznanie" placeholder="Opcjonalna fikcyjna informacja"></textarea>
+<label>Rozpoznanie / informacja RP</label>
+<textarea id="zw_rozpoznanie" placeholder="Opcjonalna fikcyjna informacja RP"></textarea>
 
 <label>Zalecenia</label>
 <textarea id="zw_zalecenia"></textarea>
@@ -1049,29 +1051,29 @@ dialog::backdrop{
 <h3>Osoba wystawiająca</h3>
 
 <label class="required">Imię i nazwisko</label>
-<input id="zw_lekarz" placeholder="Fikcyjna postać">
+<input id="zw_lekarz" placeholder="Osoba wystawiająca">
 
 <label>Specjalizacja</label>
 <input id="zw_specjalizacja">
 
 <label class="required">Numer PWZ</label>
-<input id="zw_pwz" placeholder="Fikcyjny numer PWZ do">
+<input id="zw_pwz" placeholder="Numer PWZ">
 
 <label>Placówka</label>
-<input id="zw_placowka" placeholder="Fikcyjna placówka">
+<input id="zw_placowka" placeholder="Placówka">
 
 <label>Adres placówki</label>
-<input id="zw_adresPlacowki" placeholder="Fikcyjny adres">
+<input id="zw_adresPlacowki" placeholder="Adres">
 
 <div class="grid-2">
     <div>
         <label>Telefon</label>
-        <input id="zw_tel" placeholder="Fikcyjny numer">
+        <input id="zw_tel" placeholder="Numer telefonu">
     </div>
 
     <div>
         <label>E-mail</label>
-        <input id="zw_email" placeholder="Fikcyjny e-mail">
+        <input id="zw_email" placeholder="E-mail">
     </div>
 </div>
 
@@ -1087,12 +1089,12 @@ dialog::backdrop{
     </button>
 </div>
 
-<h3>Pieczątka</h3>
+<h3>Pieczątka RP</h3>
 
 <input id="zw_stampInput" type="file" accept="image/png,image/jpeg,image/webp">
 
 <div class="hint">
-    PNG, JPG lub WEBP, maksymalnie 5 MB.
+    PNG, JPG lub WEBP, maksymalnie 5 MB. Wyłącznie fikcyjna pieczątka RP.
 </div>
 
 <div id="zw_stampPreview" class="stamp-preview">
@@ -1152,17 +1154,17 @@ dialog::backdrop{
 <div class="grid-2">
     <div>
         <label class="required">Imię</label>
-        <input id="za_imie" placeholder="Fikcyjne dane">
+        <input id="za_imie" placeholder="Fikcyjne dane RP">
     </div>
 
     <div>
         <label class="required">Nazwisko</label>
-        <input id="za_nazwisko" placeholder="Fikcyjne dane">
+        <input id="za_nazwisko" placeholder="Fikcyjne dane RP">
     </div>
 </div>
 
 <label>PESEL</label>
-<input id="za_pesel" maxlength="11" placeholder="Fikcyjny PESEL do">
+<input id="za_pesel" maxlength="11" placeholder="PESEL">
 
 <div class="grid-2">
     <div>
@@ -1172,7 +1174,7 @@ dialog::backdrop{
 
     <div>
         <label>Adres</label>
-        <input id="za_adres" placeholder="Fikcyjny adres">
+        <input id="za_adres" placeholder="Adres">
     </div>
 </div>
 
@@ -1183,8 +1185,8 @@ dialog::backdrop{
 <select id="za_rodzaj">
     <option value="">— wybierz —</option>
     <option>Do szkoły / placówki edukacyjnej</option>
-    <option>Do pracy / organizacji</option>
-    <option>Do aktywności sportowej</option>
+    <option>Do pracy / organizacji RP</option>
+    <option>Do aktywności sportowej RP</option>
     <option>Ogólne</option>
     <option>Inne</option>
 </select>
@@ -1193,7 +1195,7 @@ dialog::backdrop{
 <input id="za_cel" placeholder="W jakim celu wystawiono dokument?">
 
 <label class="required">Treść zaświadczenia</label>
-<textarea id="za_tresc" placeholder="Treść fikcyjnego zaświadczenia"></textarea>
+<textarea id="za_tresc" placeholder="Treść fikcyjnego zaświadczenia RP"></textarea>
 
 <label>Dodatkowe informacje / uwagi</label>
 <textarea id="za_uwagi"></textarea>
@@ -1204,29 +1206,29 @@ dialog::backdrop{
 <h3>Osoba wystawiająca</h3>
 
 <label class="required">Imię i nazwisko</label>
-<input id="za_lekarz" placeholder="Fikcyjna postać">
+<input id="za_lekarz" placeholder="Osoba wystawiająca">
 
 <label>Specjalizacja</label>
 <input id="za_specjalizacja">
 
 <label class="required">Numer PWZ</label>
-<input id="za_pwz" placeholder="Fikcyjny numer PWZ">
+<input id="za_pwz" placeholder="Numer PWZ">
 
 <label>Placówka</label>
-<input id="za_placowka" placeholder="Fikcyjna placówka">
+<input id="za_placowka" placeholder="Placówka">
 
 <label>Adres placówki</label>
-<input id="za_adresPlacowki" placeholder="Fikcyjny adres">
+<input id="za_adresPlacowki" placeholder="Adres">
 
 <div class="grid-2">
     <div>
         <label>Telefon</label>
-        <input id="za_tel" placeholder="Fikcyjny numer">
+        <input id="za_tel" placeholder="Numer telefonu">
     </div>
 
     <div>
         <label>E-mail</label>
-        <input id="za_email" placeholder="Fikcyjny e-mail">
+        <input id="za_email" placeholder="E-mail">
     </div>
 </div>
 
@@ -1242,12 +1244,12 @@ dialog::backdrop{
     </button>
 </div>
 
-<h3>Pieczątka</h3>
+<h3>Pieczątka RP</h3>
 
 <input id="za_stampInput" type="file" accept="image/png,image/jpeg,image/webp">
 
 <div class="hint">
-    PNG, JPG lub WEBP, maksymalnie 5 MB.
+    PNG, JPG lub WEBP, maksymalnie 5 MB. Wyłącznie fikcyjna pieczątka RP.
 </div>
 
 <div id="za_stampPreview" class="stamp-preview">
@@ -1271,6 +1273,65 @@ dialog::backdrop{
 
 </div>
 </div>
+
+
+<!-- ========================= KMCR ========================= -->
+<div id="kmcrPage" class="page"><div class="form-container">
+<div class="top-row"><button class="back-button" onclick="wrocDoLobby()">← Wróć</button><span class="page-badge">KMCR</span></div>
+<h1>Karta medycznych czynności ratunkowych</h1><p class="form-subtitle">Jednostronicowa karta w układzie tabelarycznym — rozbudowane pola badania, parametrów i przekazania pacjenta.</p>
+<div id="km_errorBox" class="error-box"><strong>Uzupełnij wymagane pola:</strong><ul id="km_errorList"></ul></div><div id="km_pdfError" class="pdf-error">Przeglądarka zablokowała nowe okno.</div>
+<h3>I. Zdarzenie i wywiad</h3>
+<div class="grid-2"><div><label class="required">Data</label><input id="km_data" type="date"></div><div><label>Godzina wezwania</label><input id="km_godzina" type="time"></div></div>
+<div class="grid-2"><div><label>Godzina wyjazdu</label><input id="km_wyjazd" type="time"></div><div><label>Godzina przybycia</label><input id="km_przybycie" type="time"></div></div>
+<div class="grid-2"><div><label class="required">Miejsce zdarzenia</label><input id="km_miejsce"></div><div><label>Typ miejsca</label><select id="km_typ_miejsca"><option>—</option><option>Dom / mieszkanie</option><option>Miejsce publiczne</option><option>Ruch uliczny</option><option>Praca</option><option>Szkoła</option><option>Inne</option></select></div></div>
+<label class="required">Powód wezwania</label><input id="km_powod"><label>Wywiad / opis zdarzenia</label><textarea id="km_wywiad"></textarea>
+<h3>II. Badanie</h3>
+<div class="grid-2"><div><label>Świadomość (AVPU)</label><select id="km_avpu"><option>—</option><option>A — przytomny</option><option>V — reaguje na głos</option><option>P — reaguje na ból</option><option>U — brak reakcji</option></select></div><div><label>Orientacja</label><select id="km_orientacja"><option>—</option><option>Pełna</option><option>Zaburzona</option><option>Brak możliwości oceny</option></select></div></div>
+<div class="grid-2"><div><label>GCS — oczy (E)</label><select id="km_gcs_e"><option value="">—</option><option value="4">4 — spontanicznie</option><option value="3">3 — na głos</option><option value="2">2 — na bodziec</option><option value="1">1 — brak</option></select></div><div><label>GCS — mowa (V)</label><select id="km_gcs_v"><option value="">—</option><option value="5">5 — zorientowany</option><option value="4">4 — splątany</option><option value="3">3 — nieadekwatne słowa</option><option value="2">2 — niezrozumiałe dźwięki</option><option value="1">1 — brak</option></select></div></div>
+<label>GCS — ruch (M)</label><select id="km_gcs_m"><option value="">—</option><option value="6">6 — wykonuje polecenia</option><option value="5">5 — lokalizuje bodziec</option><option value="4">4 — wycofuje kończynę</option><option value="3">3 — zgięcie nieprawidłowe</option><option value="2">2 — wyprost</option><option value="1">1 — brak</option></select>
+<div class="grid-2"><div><label>Drogi oddechowe</label><select id="km_drogi"><option>—</option><option>Drożne</option><option>Niedrożne</option><option>Zagrożone niedrożnością</option></select></div><div><label>Oddech</label><select id="km_oddech"><option>—</option><option>Prawidłowy</option><option>Przyspieszony</option><option>Zwolniony</option><option>Nieregularny</option><option>Bezdech</option></select></div></div>
+<div class="grid-2"><div><label>Szmer oddechowy</label><select id="km_szmer"><option>—</option><option>Prawidłowy obustronnie</option><option>Osłabiony</option><option>Brak po jednej stronie</option><option>Świsty</option><option>Rzężenia</option><option>Inne</option></select></div><div><label>Krążenie / tętno</label><select id="km_krazenie"><option>—</option><option>Miarowe</option><option>Niemiarowe</option><option>Dobrze wyczuwalne</option><option>Słabo wyczuwalne</option><option>Brak</option></select></div></div>
+<div class="grid-2"><div><label>Źrenice</label><select id="km_zrenice"><option>—</option><option>Równe, reagujące</option><option>Równe, bez reakcji</option><option>Nierówne</option><option>Zwężone</option><option>Poszerzone</option></select></div><div><label>Skóra</label><select id="km_skora"><option>—</option><option>Prawidłowa</option><option>Blada</option><option>Zasiniona</option><option>Zaczerwieniona</option><option>Chłodna</option><option>Gorąca</option><option>Sucha</option><option>Wilgotna</option></select></div></div>
+<h3>Badanie miejscowe</h3>
+<div class="grid-2"><div><label>Głowa / twarz</label><select id="km_glowa"><option>Bez odchyleń</option><option>Bolesność</option><option>Obrzęk</option><option>Rana / uraz</option><option>Inne</option></select></div><div><label>Szyja</label><select id="km_szyja"><option>Bez odchyleń</option><option>Bolesność</option><option>Ograniczenie ruchomości</option><option>Uraz</option><option>Inne</option></select></div></div>
+<div class="grid-2"><div><label>Klatka piersiowa</label><select id="km_klatka"><option>Bez odchyleń</option><option>Bolesna</option><option>Asymetryczna</option><option>Niestabilna</option><option>Uraz / rana</option><option>Inne</option></select></div><div><label>Jama brzuszna</label><select id="km_brzuch"><option>Miękka, niebolesna</option><option>Miękka, bolesna</option><option>Wzdęta</option><option>Twarda / napięta</option><option>Obrona mięśniowa</option><option>Uraz / rana</option><option>Inne</option></select></div></div>
+<div class="grid-2"><div><label>Miednica</label><select id="km_miednica"><option>Bez odchyleń</option><option>Bolesna</option><option>Niestabilna</option><option>Uraz</option><option>Inne</option></select></div><div><label>Kręgosłup / plecy</label><select id="km_kregoslup"><option>Bez odchyleń</option><option>Bolesność szyjna</option><option>Bolesność piersiowa</option><option>Bolesność lędźwiowa</option><option>Uraz / deformacja</option><option>Inne</option></select></div></div>
+<div class="grid-2"><div><label>Kończyny górne</label><select id="km_kkg"><option>Bez odchyleń</option><option>Bolesność</option><option>Obrzęk</option><option>Deformacja</option><option>Rana / uraz</option><option>Zaburzenia czucia/ruchu</option><option>Inne</option></select></div><div><label>Kończyny dolne</label><select id="km_kkd"><option>Bez odchyleń</option><option>Bolesność</option><option>Obrzęk</option><option>Deformacja</option><option>Rana / uraz</option><option>Zaburzenia czucia/ruchu</option><option>Inne</option></select></div></div>
+<div class="grid-2"><div><label>Obrażenia</label><select id="km_obrazenia"><option>Brak widocznych</option><option>Rana</option><option>Stłuczenie</option><option>Otarcie</option><option>Krwawienie</option><option>Podejrzenie złamania</option><option>Oparzenie</option><option>Inne</option></select></div><div><label>Ból NRS</label><select id="km_nrs"><option>—</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div></div>
+<h3>Parametry — do 3 pomiarów</h3>
+<div class="grid-2"><div><label>Pomiar 1 — godzina</label><input id="km_p1_time" type="time"></div><div><label>RR / HR / SpO₂ / oddechy / temp. / glikemia</label><input id="km_p1" placeholder="np. wartości pomiaru"></div></div>
+<div class="grid-2"><div><label>Pomiar 2 — godzina</label><input id="km_p2_time" type="time"></div><div><label>RR / HR / SpO₂ / oddechy / temp. / glikemia</label><input id="km_p2"></div></div>
+<div class="grid-2"><div><label>Pomiar 3 — godzina</label><input id="km_p3_time" type="time"></div><div><label>RR / HR / SpO₂ / oddechy / temp. / glikemia</label><input id="km_p3"></div></div>
+<h3>III. Rozpoznanie</h3><label>Rozpoznanie / opis</label><textarea id="km_rozpoznanie"></textarea>
+<h3>IV. Postępowanie z pacjentem</h3><label>Wykonane czynności</label><div class="km-checks" id="km_czynnosci_checks">
+<label><input type="checkbox" value="Tlenoterapia"> Tlenoterapia</label><label><input type="checkbox" value="Monitorowanie"> Monitorowanie</label><label><input type="checkbox" value="EKG"> EKG</label><label><input type="checkbox" value="Dostęp dożylny"> Dostęp dożylny</label><label><input type="checkbox" value="Unieruchomienie"> Unieruchomienie</label><label><input type="checkbox" value="Opatrunek"> Opatrunek</label><label><input type="checkbox" value="RKO"> RKO</label><label><input type="checkbox" value="Defibrylacja"> Defibrylacja</label><label><input type="checkbox" value="Wentylacja zastępcza"> Wentylacja zastępcza</label><label><input type="checkbox" value="Udrożnienie dróg oddechowych"> Udrożnienie dróg oddechowych</label><label><input type="checkbox" value="Transport"> Transport</label><label><input type="checkbox" value="Inne"> Inne</label></div>
+<label>Dodatkowy opis czynności</label><textarea id="km_czynnosci"></textarea><label>Zastosowane leki / płyny / wyroby medyczne</label><textarea id="km_leki" placeholder="Nazwa i informacja wpisana na potrzeby scenariusza"></textarea>
+<h3>V. Dane pacjenta i przekazanie</h3><div class="grid-2"><div><label class="required">Imię</label><input id="km_imie"></div><div><label class="required">Nazwisko</label><input id="km_nazwisko"></div></div><div class="grid-2"><div><label>PESEL</label><input id="km_pesel"></div><div><label>Data urodzenia / wiek</label><input id="km_wiek"></div></div><label>Adres</label><input id="km_adres">
+<div class="grid-2"><div><label>Decyzja</label><select id="km_decyzja"><option>—</option><option>Transport do szpitala</option><option>Przekazanie innemu zespołowi</option><option>Pozostawienie na miejscu</option><option>Odmowa transportu</option><option>Inna</option></select></div><div><label>Miejsce przekazania</label><input id="km_szpital" placeholder="Szpital / SOR / oddział / inne"></div></div><label>Transport / przekazanie — opis</label><textarea id="km_transport"></textarea>
+<h3>Zespół</h3><div class="grid-2"><div><label class="required">Osoba sporządzająca</label><input id="km_osoba"></div><div><label>Skład zespołu</label><input id="km_zespol"></div></div><label>Jednostka / oznaczenie zespołu</label><input id="km_jednostka">
+<div class="buttons-row three"><button class="clear-button" onclick="wyczyscNowy('km')">Wyczyść</button><button class="preview-button" onclick="generujKMCR(true)">Podgląd</button><button class="generate-button" onclick="generujKMCR(false)">Generuj / Pobierz PDF</button></div>
+</div></div>
+
+<!-- ========================= ODMOWA ========================= -->
+<div id="odmowaPage" class="page"><div class="form-container">
+<div class="top-row"><button class="back-button" onclick="wrocDoLobby()">← Wróć</button><span class="page-badge">ODMOWA</span></div><h1>Odmowa transportu / hospitalizacji</h1><p class="form-subtitle">Dokument scenariusza dotyczący odmowy dalszego postępowania.</p>
+<div id="ot_errorBox" class="error-box"><strong>Uzupełnij wymagane pola:</strong><ul id="ot_errorList"></ul></div><div id="ot_pdfError" class="pdf-error">Przeglądarka zablokowała nowe okno.</div>
+<h3>Zdarzenie</h3><div class="grid-2"><div><label class="required">Data</label><input id="ot_data" type="date"></div><div><label>Godzina</label><input id="ot_godzina" type="time"></div></div><label>Miejsce</label><input id="ot_miejsce">
+<h3>Pacjent</h3><div class="grid-2"><div><label class="required">Imię</label><input id="ot_imie"></div><div><label class="required">Nazwisko</label><input id="ot_nazwisko"></div></div><label>PESEL</label><input id="ot_pesel">
+<h3>Odmowa</h3><label class="required">Rodzaj odmowy</label><select id="ot_rodzaj"><option>Transport do szpitala</option><option>Hospitalizacja</option><option>Dalsze badanie / postępowanie</option></select><label class="required">Opis sytuacji</label><textarea id="ot_opis"></textarea><label>Informacje przekazane pacjentowi w scenariuszu</label><textarea id="ot_info"></textarea><label>Zalecenia</label><textarea id="ot_zalecenia"></textarea>
+<h3>Zespół</h3><label class="required">Osoba sporządzająca</label><input id="ot_osoba"><label>Jednostka / zespół</label><input id="ot_zespol">
+<div class="buttons-row three"><button class="clear-button" onclick="wyczyscNowy('ot')">Wyczyść</button><button class="preview-button" onclick="generujOdmowe(true)">Podgląd</button><button class="generate-button" onclick="generujOdmowe(false)">Generuj / Pobierz PDF</button></div>
+</div></div>
+
+<!-- ========================= KARTA ZGONU ========================= -->
+<div id="zgonPage" class="page"><div class="form-container">
+<div class="top-row"><button class="back-button" onclick="wrocDoLobby()">← Wróć</button><span class="page-badge">KARTA ZGONU</span></div><h1>Karta zgonu</h1><p class="form-subtitle">Własny format MedDocs przeznaczony do fikcyjnych scenariuszy.</p>
+<div id="kz_errorBox" class="error-box"><strong>Uzupełnij wymagane pola:</strong><ul id="kz_errorList"></ul></div><div id="kz_pdfError" class="pdf-error">Przeglądarka zablokowała nowe okno.</div>
+<h3>Dane osoby</h3><div class="grid-2"><div><label class="required">Imię</label><input id="kz_imie"></div><div><label class="required">Nazwisko</label><input id="kz_nazwisko"></div></div><div class="grid-2"><div><label>Data urodzenia</label><input id="kz_urodzenie" type="date"></div><div><label>PESEL</label><input id="kz_pesel"></div></div>
+<h3>Informacje o zdarzeniu</h3><div class="grid-2"><div><label class="required">Data</label><input id="kz_data" type="date"></div><div><label>Godzina</label><input id="kz_godzina" type="time"></div></div><label class="required">Miejsce</label><input id="kz_miejsce"><label>Okoliczności scenariusza</label><textarea id="kz_okolicznosci"></textarea><label>Dodatkowe informacje</label><textarea id="kz_uwagi"></textarea>
+<h3>Osoba sporządzająca</h3><label class="required">Imię i nazwisko</label><input id="kz_osoba"><label>Funkcja / specjalizacja</label><input id="kz_funkcja"><label>Placówka / jednostka</label><input id="kz_placowka">
+<div class="buttons-row three"><button class="clear-button" onclick="wyczyscNowy('kz')">Wyczyść</button><button class="preview-button" onclick="generujKarteZgonu(true)">Podgląd</button><button class="generate-button" onclick="generujKarteZgonu(false)">Generuj / Pobierz PDF</button></div>
+</div></div>
 
 <!-- =========================
      DIALOGI
@@ -1301,7 +1362,7 @@ dialog::backdrop{
             Dane formularzy, podpisy i pieczątki są przetwarzane lokalnie
             w przeglądarce.
         </p>
-        <p>Używaj wyłącznie fikcyjnych danych.</p>
+        <p>Używaj wyłącznie fikcyjnych danych RP.</p>
     </div>
     <button type="button" class="dialog-close" onclick="closeDialog('privacyDialog')">
         Zamknij
@@ -1311,13 +1372,13 @@ dialog::backdrop{
 <dialog id="changelogDialog">
 <div class="dialog-content">
 
-<h2>Changelog</h2>
+<h2>Changelog</h2><div class="changelog-version"><strong>v1.4 — Ratownictwo medyczne</strong><ul><li>Dodano KMCR.</li><li>Dodano odmowę transportu / hospitalizacji.</li><li>Dodano kartę zgonu w autorskim układzie MedDocs.</li><li>Lobby podzielono na kategorie.</li><li>Dodano żywe tło.</li><li>Dodano podgląd dla nowych dokumentów.</li></ul></div>
 
 <div class="changelog-version">
-    <strong>v1.3 — Zwolnienia i zaświadczenia</strong>
+    <strong>v1.4 — Zwolnienia i zaświadczenia</strong>
     <ul>
-        <li>Dodano Zwolnienie lekarskie.</li>
-        <li>Dodano Zaświadczenie lekarskie.</li>
+        <li>Dodano Zwolnienie lekarskie RP.</li>
+        <li>Dodano Zaświadczenie lekarskie RP.</li>
         <li>Automatyczne obliczanie liczby dni zwolnienia.</li>
         <li>Osobne podpisy i pieczątki dla nowych dokumentów.</li>
         <li>Zwolnienie otrzymało własny tabelaryczny układ wydruku.</li>
@@ -1326,14 +1387,14 @@ dialog::backdrop{
         <li>Dodano numery dokumentów MedDocs.</li>
         <li>Dodano oznaczenia NOWE oraz odświeżono wygląd lobby.</li>
         <li>Zmniejszono puste przestrzenie w Zwolnieniu i Zaświadczeniu.</li>
-        <li>Roadmapa pokazuje wyłącznie następną aktualizację v1.4.</li>
+        <li>Roadmapa pokazuje wyłącznie następną aktualizację v1.5.</li>
     </ul>
 </div>
 
 <div class="changelog-version">
     <strong>v1.2 — Skierowania</strong>
     <ul>
-        <li>Dodano generator skierowań.</li>
+        <li>Dodano generator skierowań RP.</li>
         <li>Tryb Zwykły / Pilny.</li>
         <li>Dane kontaktowe placówki.</li>
     </ul>
@@ -1342,7 +1403,7 @@ dialog::backdrop{
 <div class="changelog-version">
     <strong>v1.1</strong>
     <ul>
-        <li>Podpis i pieczątka.</li>
+        <li>Podpis i pieczątka RP.</li>
         <li>Walidacja formularza.</li>
     </ul>
 </div>
@@ -1351,7 +1412,7 @@ dialog::backdrop{
     <strong>v1.0</strong>
     <ul>
         <li>Pierwsza wersja MedDocs.</li>
-        <li>Generator recepty.</li>
+        <li>Generator recepty RP.</li>
     </ul>
 </div>
 
@@ -2812,7 +2873,7 @@ function authHTML(
 
                     ${showValue(spec)}<br>
 
-                    PWZ: ${showValue(pwz)}<br><br>
+                    PWZ RP: ${showValue(pwz)}<br><br>
 
                     <strong>${showValue(facility)}</strong><br>
 
@@ -2832,7 +2893,7 @@ function authHTML(
                 ${sig}
 
                 <div class="authlabel">
-                    podpis / pieczątka
+                    podpis / pieczątka RP
                 </div>
 
             </div>
@@ -2864,7 +2925,7 @@ function signatureStampHTML(type){
             ${sig}
 
             <div class="authlabel">
-                podpis / pieczątka
+                podpis / pieczątka RP
             </div>
 
         </div>
@@ -2957,7 +3018,7 @@ function pobierzPDF(){
                         ${showValue("imie")} ${showValue("nazwisko")}
                     </strong><br>
 
-                    PESEL: ${showValue("pesel")}<br>
+                    PESEL RP: ${showValue("pesel")}<br>
 
                     Data urodzenia:
                     ${formatDatePL(value("dataUrodzenia"))}<br>
@@ -3045,7 +3106,7 @@ function pobierzPDF(){
 
     if(
         !openPrint(
-            "Recepta - MedDocs",
+            "Recepta RP - MedDocs",
             body,
             standardPrintStyle()
         )
@@ -3107,7 +3168,7 @@ function pobierzSkierowaniePDF(){
                         ${showValue("sk_nazwisko")}
                     </strong><br>
 
-                    PESEL:
+                    PESEL RP:
                     ${showValue("sk_pesel")}<br>
 
                     Data urodzenia:
@@ -3165,7 +3226,7 @@ function pobierzSkierowaniePDF(){
 
         <div class="section">
 
-            <h2>Rozpoznanie / podejrzenie</h2>
+            <h2>Rozpoznanie / podejrzenie RP</h2>
 
             ${showMultiline("sk_rozpoznanie")}
 
@@ -3215,7 +3276,7 @@ function pobierzSkierowaniePDF(){
 
     if(
         !openPrint(
-            "Skierowanie - MedDocs",
+            "Skierowanie RP - MedDocs",
             body,
             standardPrintStyle() + `
 <style>
@@ -3323,7 +3384,7 @@ function pobierzZwolnieniePDF(){
         </div>
 
         <div class="leave-title">
-            ZWOLNIENIE LEKARSKIE
+            ZWOLNIENIE LEKARSKIE RP
         </div>
 
         <div class="leave-subtitle">
@@ -3362,7 +3423,7 @@ function pobierzZwolnieniePDF(){
                 <td style="width:25%">
 
                     <span class="leave-label">
-                        PESEL
+                        PESEL RP
                     </span>
 
                     <span class="leave-value">
@@ -3468,12 +3529,12 @@ function pobierzZwolnieniePDF(){
         </table>
 
         <div class="leave-section-title">
-            Informacja medyczna
+            Informacja medyczna RP
         </div>
 
         <div class="leave-info">
 
-            <strong>Rozpoznanie / informacja:</strong><br>
+            <strong>Rozpoznanie / informacja RP:</strong><br>
 
             ${showMultiline("zw_rozpoznanie")}
 
@@ -3509,7 +3570,7 @@ function pobierzZwolnieniePDF(){
 
                 ${showValue("zw_specjalizacja")}<br>
 
-                PWZ:
+                PWZ RP:
                 ${showValue("zw_pwz")}<br><br>
 
                 <strong>
@@ -3544,7 +3605,7 @@ function pobierzZwolnieniePDF(){
 
     if(
         !openPrint(
-            "Zwolnienie lekarskie - MedDocs",
+            "Zwolnienie lekarskie RP - MedDocs",
             body,
             zwolnienieStyle()
         )
@@ -3642,7 +3703,7 @@ function pobierzZaswiadczeniePDF(){
 
                 <div class="cert-person-details">
 
-                    PESEL:
+                    PESEL RP:
                     ${showValue("za_pesel")}
                     &nbsp;&nbsp;•&nbsp;&nbsp;
 
@@ -3694,7 +3755,7 @@ function pobierzZaswiadczeniePDF(){
 
                 ${showValue("za_specjalizacja")}<br>
 
-                PWZ:
+                PWZ RP:
                 ${showValue("za_pwz")}
 
             </div>
@@ -3724,7 +3785,7 @@ function pobierzZaswiadczeniePDF(){
 
     if(
         !openPrint(
-            "Zaświadczenie lekarskie - MedDocs",
+            "Zaświadczenie lekarskie RP - MedDocs",
             body,
             zaswiadczenieStyle()
         )
@@ -3768,6 +3829,77 @@ ustawDate("dataWystawienia");
 ustawDate("sk_dataWystawienia");
 ustawDate("zw_data");
 ustawDate("za_data");
+
+
+
+/* ========================= v1.4 — NOWE DOKUMENTY ========================= */
+const kmRequired=[["km_data","Data"],["km_miejsce","Miejsce zdarzenia"],["km_powod","Powód wezwania"],["km_imie","Imię pacjenta"],["km_nazwisko","Nazwisko pacjenta"],["km_osoba","Osoba sporządzająca"]];
+const otRequired=[["ot_data","Data"],["ot_imie","Imię pacjenta"],["ot_nazwisko","Nazwisko pacjenta"],["ot_rodzaj","Rodzaj odmowy"],["ot_opis","Opis sytuacji"],["ot_osoba","Osoba sporządzająca"]];
+const kzRequired=[["kz_imie","Imię"],["kz_nazwisko","Nazwisko"],["kz_data","Data"],["kz_miejsce","Miejsce"],["kz_osoba","Osoba sporządzająca"]];
+
+function v14Style(){return `<style>@page{size:A4;margin:12mm}*{box-sizing:border-box}body{margin:0;background:#ececf1;color:#111;font-family:Arial,sans-serif}.doc{width:190mm;min-height:260mm;margin:20px auto;background:white;padding:14mm;box-shadow:0 10px 40px #0002;position:relative}.brand{font-size:22px;font-weight:900}.brand span{color:#6d4cff}.doc h1{font-size:23px;margin:12px 0 4px}.meta{font-size:11px;color:#666}.warning{margin:12px 0;padding:9px;border:2px solid #111;text-align:center;font-weight:900;font-size:12px}.section{margin-top:14px;border-top:1px solid #aaa;padding-top:8px}.section h2{font-size:13px;margin:0 0 7px;text-transform:uppercase;letter-spacing:.6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.cell{border:1px solid #bbb;padding:7px;min-height:42px;font-size:12px}.cell b{display:block;font-size:9px;color:#666;text-transform:uppercase;margin-bottom:3px}.text{border:1px solid #bbb;padding:8px;min-height:45px;font-size:12px;line-height:1.45}.footer{margin-top:18px;padding-top:8px;border-top:1px solid #bbb;text-align:center;font-size:9px;color:#555}.print{margin:18px auto 0;display:block;padding:11px 18px}.preview-note{margin:10px 0;text-align:center;font-size:11px;color:#6d4cff;font-weight:700}@media print{body{background:white}.doc{width:auto;min-height:0;margin:0;padding:0;box-shadow:none}.print,.preview-note{display:none}}@media(max-width:760px){.doc{width:calc(100% - 16px);padding:20px}.grid{grid-template-columns:1fr}}</style>`}
+function cell(label,html){return `<div class="cell"><b>${label}</b>${html||"—"}</div>`}
+function v14Open(title,body,preview){const w=openPrint(title,body+(preview?'<div class="preview-note">PODGLĄD — dokument nie został jeszcze zapisany</div>':'')+(preview?'':'<button class="print" onclick="window.print()">Zapisz jako PDF</button>'),v14Style());return w}
+function docHead(title,prefix){const n=generujNumerDokumentu(prefix);return `<div class="brand">Med<span>Docs</span></div><h1>${title}</h1><div class="meta">Numer dokumentu MedDocs: <strong>${n}</strong></div><div class="warning">DOKUMENT FIKCYJNY — ROLEPLAY • NIE DO UŻYTKU RZECZYWISTEGO</div>`}
+function sec(title,content){return `<div class="section"><h2>${title}</h2>${content}</div>`}
+function checkedKM(id){const el=document.getElementById(id);if(!el)return "—";const a=[...el.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value);return a.length?escapeHTML(a.join(", ")):"—"}
+function gcsKM(){const e=Number(value("km_gcs_e")),v=Number(value("km_gcs_v")),m=Number(value("km_gcs_m"));return e&&v&&m?String(e+v+m):"—"}
+function generujKMCR(preview=false){
+ if(!validate(kmRequired,"km_errorBox","km_errorList"))return;
+ const compactStyle=`<style>@page{size:A4;margin:5mm}*{box-sizing:border-box}body{margin:0;background:#eee;color:#111;font-family:Arial,sans-serif}.doc{width:200mm;height:287mm;margin:8px auto;background:#fff;padding:4mm;border:1px solid #aaa;display:flex;flex-direction:column;overflow:hidden}.kh{display:grid;grid-template-columns:1fr 120px 115px;border:1px solid #222;flex:0 0 auto}.kh>div{padding:4px;border-right:1px solid #222;font-size:8px}.kh>div:last-child{border:0}.kt{font-size:15px;font-weight:900;text-align:center;margin:2px 0}.warn{text-align:center;font-size:7px;font-weight:900;border:1px solid #222;padding:2px;margin:2px 0}.ks{border:1px solid #222;border-top:0;display:block;min-height:0;break-inside:avoid}.ks h2{margin:0;padding:2.5px 4px;background:#eee;border-bottom:1px solid #222;font-size:8px;text-transform:uppercase}.kg{display:grid;grid-template-columns:repeat(4,1fr);align-items:stretch}.kc{padding:2.5px 4px;border-right:1px solid #bbb;border-bottom:1px solid #bbb;min-height:18px;font-size:7px;line-height:1.18;overflow-wrap:anywhere;white-space:normal}.kc b{display:block;font-size:6px;text-transform:uppercase;color:#555;margin-bottom:1.5px}.wide{grid-column:span 2}.full{grid-column:1/-1}.kbody{display:grid;grid-template-columns:1.05fr 1.05fr 1fr;align-items:stretch}.kbody .kc{min-height:22px}.kparams{display:grid;grid-template-columns:55px 1fr 1fr 1fr}.kparams div{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:2.5px 3px;font-size:6.5px;min-height:16px;overflow-wrap:anywhere}.foot{text-align:center;font-size:6px;margin-top:auto;padding-top:3px;flex:0 0 auto}.print{display:block;margin:8px auto;padding:8px 14px}.preview-note{text-align:center;font-size:8px;color:#6d4cff;font-weight:bold}@media print{body{background:#fff}.doc{margin:0;width:200mm;height:287mm;border:0;padding:0;page-break-after:avoid}.print,.preview-note{display:none}}</style>`;
+ const c=(l,x,cl='')=>`<div class="kc ${cl}"><b>${l}</b>${x||'—'}</div>`;
+ const section=(t,x)=>`<div class="ks"><h2>${t}</h2>${x}</div>`;
+ const body=`<div class="doc"><div class="kt">KARTA MEDYCZNYCH CZYNNOŚCI RATUNKOWYCH</div><div class="warn">DOKUMENT FIKCYJNY — ROLEPLAY • NIE JEST OFICJALNĄ KMCR ANI DOKUMENTEM SYSTEMU PRM</div><div class="kh"><div><b>MedDocs</b><br>Numer: ${generujNumerDokumentu("KM")}</div><div>Data: ${formatDatePL(value("km_data"))}<br>Wezwanie: ${showValue("km_godzina")}</div><div>Wyjazd: ${showValue("km_wyjazd")}<br>Na miejscu: ${showValue("km_przybycie")}</div></div>
+ ${section('I. Wywiad',`<div class="kg">${c('Powód wezwania',showValue('km_powod'),'wide')}${c('Miejsce',showValue('km_miejsce'))}${c('Typ miejsca',showValue('km_typ_miejsca'))}${c('Wywiad / opis zdarzenia',showMultiline('km_wywiad'),'full')}</div>`)}
+ ${section('II. Badanie',`<div class="kg">${c('AVPU',showValue('km_avpu'))}${c('Orientacja',showValue('km_orientacja'))}${c('GCS E/V/M',showValue('km_gcs_e')+'/'+showValue('km_gcs_v')+'/'+showValue('km_gcs_m')+' = '+gcsKM())}${c('Ból NRS',showValue('km_nrs'))}${c('Drogi oddechowe',showValue('km_drogi'))}${c('Oddech',showValue('km_oddech'))}${c('Szmer oddechowy',showValue('km_szmer'))}${c('Krążenie / tętno',showValue('km_krazenie'))}${c('Źrenice',showValue('km_zrenice'))}${c('Skóra',showValue('km_skora'))}</div><div class="kbody">${c('Głowa / twarz',showValue('km_glowa'))}${c('Szyja',showValue('km_szyja'))}${c('Klatka piersiowa',showValue('km_klatka'))}${c('Jama brzuszna',showValue('km_brzuch'))}${c('Miednica',showValue('km_miednica'))}${c('Kręgosłup / plecy',showValue('km_kregoslup'))}${c('Kończyny górne',showValue('km_kkg'))}${c('Kończyny dolne',showValue('km_kkd'))}${c('Obrażenia',showValue('km_obrazenia'))}</div><div class="kparams"><div><b>PARAMETRY</b></div><div><b>POMIAR 1</b></div><div><b>POMIAR 2</b></div><div><b>POMIAR 3</b></div><div>Godzina</div><div>${showValue('km_p1_time')}</div><div>${showValue('km_p2_time')}</div><div>${showValue('km_p3_time')}</div><div>RR/HR/SpO₂/oddechy/temp/glik.</div><div>${showValue('km_p1')}</div><div>${showValue('km_p2')}</div><div>${showValue('km_p3')}</div></div>`)}
+ ${section('III. Rozpoznanie',`<div class="kg">${c('Rozpoznanie / opis',showMultiline('km_rozpoznanie'),'full')}</div>`)}
+ ${section('IV. Postępowanie z pacjentem',`<div class="kg">${c('Czynności — zaznaczone',checkedKM('km_czynnosci_checks'),'full')}${c('Dodatkowy opis',showMultiline('km_czynnosci'),'wide')}${c('Leki / płyny / wyroby — wpis scenariusza',showMultiline('km_leki'),'wide')}</div>`)}
+ ${section('V. Dane pacjenta i przekazanie',`<div class="kg">${c('Imię i nazwisko',showValue('km_imie')+' '+showValue('km_nazwisko'),'wide')}${c('PESEL',showValue('km_pesel'))}${c('Data ur. / wiek',showValue('km_wiek'))}${c('Adres',showValue('km_adres'),'wide')}${c('Decyzja',showValue('km_decyzja'))}${c('Miejsce przekazania',showValue('km_szpital'))}${c('Transport / przekazanie',showMultiline('km_transport'),'wide')}${c('Osoba sporządzająca',showValue('km_osoba'))}${c('Zespół',showValue('km_zespol'))}${c('Jednostka',showValue('km_jednostka'))}</div>`)}<div class="foot">MedDocs • dokument fikcyjny przeznaczony wyłącznie do roleplay.</div></div>`;
+ const w=openPrint('KMCR - MedDocs',body+(preview?'<div class="preview-note">PODGLĄD</div>':'<button class="print" onclick="window.print()">Zapisz jako PDF</button>'),compactStyle);if(!w)document.getElementById('km_pdfError').style.display='block';
+}
+function odmowaStyle(){return `<style>
+@page{size:A4;margin:10mm}*{box-sizing:border-box}body{margin:0;background:#ececf1;color:#111;font-family:Arial,Helvetica,sans-serif}.od-doc{width:190mm;min-height:277mm;margin:12px auto;background:#fff;padding:9mm 10mm;box-shadow:0 10px 35px #0002;position:relative;display:flex;flex-direction:column}.od-top{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;border-bottom:2px solid #111;padding-bottom:6px}.od-brand{font-size:17px;font-weight:900}.od-brand span{color:#6d4cff}.od-no{text-align:right;font-size:8px;line-height:1.45}.od-title{text-align:center;font-size:18px;font-weight:900;margin:11px 0 2px;letter-spacing:.25px}.od-sub{text-align:center;font-size:8px;color:#555;margin-bottom:7px}.od-warning{border:1.5px solid #111;padding:4px 6px;text-align:center;font-size:8px;font-weight:900;margin-bottom:7px}.od-sec{border:1px solid #333;margin-top:6px;break-inside:avoid}.od-sec h2{font-size:8px;letter-spacing:.5px;text-transform:uppercase;margin:0;padding:4px 6px;background:#ededed;border-bottom:1px solid #333}.od-grid{display:grid;grid-template-columns:repeat(4,1fr)}.od-cell{min-height:28px;padding:4px 5px;border-right:1px solid #aaa;border-bottom:1px solid #aaa;font-size:9px;line-height:1.3;overflow-wrap:anywhere}.od-cell:nth-child(4n){border-right:0}.od-cell b{display:block;font-size:6.5px;text-transform:uppercase;color:#555;margin-bottom:2px}.od-span2{grid-column:span 2}.od-span3{grid-column:span 3}.od-span4{grid-column:1/-1;border-right:0}.od-text{padding:6px;min-height:42px;font-size:9px;line-height:1.4;white-space:normal;overflow-wrap:anywhere}.od-statement{font-size:9px;line-height:1.5;padding:7px 8px}.od-choice{display:inline-block;border:1px solid #222;padding:3px 7px;font-weight:800;margin-top:2px}.od-signs{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;padding:0 8px}.od-sign{padding-top:24px;border-bottom:1px solid #222;text-align:center;font-size:7px;color:#555}.od-foot{margin-top:auto;padding-top:8px;border-top:1px solid #aaa;text-align:center;font-size:6.5px;color:#555}.print{display:block;margin:10px auto;padding:9px 16px}.preview-note{text-align:center;font-size:8px;color:#6d4cff;font-weight:800}@media print{body{background:#fff}.od-doc{width:auto;min-height:277mm;margin:0;padding:0;box-shadow:none}.print,.preview-note{display:none}}@media(max-width:760px){.od-doc{width:calc(100% - 14px);padding:16px}.od-grid{grid-template-columns:1fr 1fr}.od-cell:nth-child(4n){border-right:1px solid #aaa}.od-span3,.od-span4{grid-column:1/-1}}
+</style>`}
+function kartaZgonuStyle(){return `<style>
+@page{size:A4;margin:10mm}*{box-sizing:border-box}body{margin:0;background:#ececf1;color:#111;font-family:Arial,Helvetica,sans-serif}.kz-doc{width:190mm;min-height:277mm;margin:12px auto;background:#fff;padding:9mm 10mm;box-shadow:0 10px 35px #0002;position:relative;display:flex;flex-direction:column}.kz-watermark{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) rotate(-31deg);font-size:46px;font-weight:900;letter-spacing:4px;color:rgba(80,80,80,.055);white-space:nowrap;pointer-events:none}.kz-head{display:grid;grid-template-columns:1fr 1.2fr 1fr;align-items:start;border:1.5px solid #222}.kz-head>div{padding:5px 6px;min-height:43px;border-right:1px solid #222;font-size:7.5px;line-height:1.35}.kz-head>div:last-child{border-right:0;text-align:right}.kz-brand{font-size:16px;font-weight:900}.kz-brand span{color:#6d4cff}.kz-title{text-align:center;font-size:19px;font-weight:900;margin:9px 0 2px;letter-spacing:.4px}.kz-sub{text-align:center;font-size:7px;color:#555;margin-bottom:6px}.kz-warning{border:2px solid #111;padding:4px;text-align:center;font-size:8px;font-weight:900;margin-bottom:7px}.kz-sec{border:1px solid #333;margin-top:6px;break-inside:avoid;position:relative;z-index:1}.kz-sec h2{font-size:8px;letter-spacing:.55px;text-transform:uppercase;margin:0;padding:4px 6px;background:#e9e9e9;border-bottom:1px solid #333}.kz-grid{display:grid;grid-template-columns:repeat(4,1fr)}.kz-cell{min-height:31px;padding:4px 5px;border-right:1px solid #aaa;border-bottom:1px solid #aaa;font-size:9px;line-height:1.3;overflow-wrap:anywhere}.kz-cell:nth-child(4n){border-right:0}.kz-cell b{display:block;font-size:6.5px;color:#555;text-transform:uppercase;margin-bottom:2px}.kz-span2{grid-column:span 2}.kz-span3{grid-column:span 3}.kz-span4{grid-column:1/-1;border-right:0}.kz-text{padding:7px;min-height:62px;font-size:9px;line-height:1.45;overflow-wrap:anywhere}.kz-note{padding:6px 7px;font-size:7.5px;line-height:1.4;background:#fafafa}.kz-signs{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px;padding:0 8px;position:relative;z-index:1}.kz-sign{padding-top:27px;border-bottom:1px solid #222;text-align:center;font-size:7px;color:#555}.kz-foot{margin-top:auto;padding-top:8px;border-top:1px solid #aaa;text-align:center;font-size:6.5px;color:#555;position:relative;z-index:1}.print{display:block;margin:10px auto;padding:9px 16px}.preview-note{text-align:center;font-size:8px;color:#6d4cff;font-weight:800}@media print{body{background:#fff}.kz-doc{width:auto;min-height:277mm;margin:0;padding:0;box-shadow:none}.print,.preview-note{display:none}}@media(max-width:760px){.kz-doc{width:calc(100% - 14px);padding:16px}.kz-grid{grid-template-columns:1fr 1fr}.kz-cell:nth-child(4n){border-right:1px solid #aaa}.kz-span3,.kz-span4{grid-column:1/-1}}
+</style>`}
+function generujOdmowe(preview=false){
+ if(!validate(otRequired,"ot_errorBox","ot_errorList"))return;
+ const n=generujNumerDokumentu("OT");
+ const oc=(l,x,cl='')=>`<div class="od-cell ${cl}"><b>${l}</b>${x||'—'}</div>`;
+ const body=`<div class="od-doc">
+ <div class="od-top"><div><div class="od-brand">Med<span>Docs</span></div><div style="font-size:7px;color:#666;margin-top:2px">Dokumentacja zdarzenia medycznego</div></div><div class="od-no">Numer dokumentu MedDocs<br><strong>${n}</strong></div></div>
+ <div class="od-title">OŚWIADCZENIE O ODMOWIE TRANSPORTU / HOSPITALIZACJI</div><div class="od-sub">autorski formularz MedDocs do fikcyjnych scenariuszy</div>
+ <div class="od-warning">DOKUMENT FIKCYJNY — ROLEPLAY • NIE STANOWI RZECZYWISTEGO OŚWIADCZENIA PACJENTA</div>
+ <div class="od-sec"><h2>I. Dane zdarzenia</h2><div class="od-grid">${oc('Data',formatDatePL(value('ot_data')))}${oc('Godzina',showValue('ot_godzina'))}${oc('Miejsce zdarzenia',showValue('ot_miejsce'),'od-span2')}</div></div>
+ <div class="od-sec"><h2>II. Dane osoby</h2><div class="od-grid">${oc('Imię',showValue('ot_imie'))}${oc('Nazwisko',showValue('ot_nazwisko'))}${oc('PESEL / identyfikator',showValue('ot_pesel'),'od-span2')}</div></div>
+ <div class="od-sec"><h2>III. Zakres odmowy</h2><div class="od-statement">Osoba w ramach scenariusza odmawia: <div class="od-choice">${showValue('ot_rodzaj')}</div></div></div>
+ <div class="od-sec"><h2>IV. Opis sytuacji</h2><div class="od-text">${showMultiline('ot_opis')}</div></div>
+ <div class="od-sec"><h2>V. Informacje przekazane osobie</h2><div class="od-text">${showMultiline('ot_info')}</div></div>
+ <div class="od-sec"><h2>VI. Zalecenia / dalsze informacje w scenariuszu</h2><div class="od-text">${showMultiline('ot_zalecenia')}</div></div>
+ <div class="od-sec"><h2>VII. Dane zespołu</h2><div class="od-grid">${oc('Osoba sporządzająca',showValue('ot_osoba'),'od-span2')}${oc('Jednostka / zespół',showValue('ot_zespol'),'od-span2')}</div></div>
+ <div class="od-signs"><div class="od-sign">podpis osoby odmawiającej — fikcyjny</div><div class="od-sign">podpis osoby sporządzającej — fikcyjny</div></div>
+ <div class="od-foot">MedDocs • dokument fikcyjny przeznaczony wyłącznie do roleplay • numer MedDocs jest wyłącznie wewnętrznym identyfikatorem</div></div>`;
+ const w=openPrint('Odmowa transportu - MedDocs',body+(preview?'<div class="preview-note">PODGLĄD — dokument nie został zapisany</div>':'<button class="print" onclick="window.print()">Zapisz jako PDF</button>'),odmowaStyle());if(!w)document.getElementById('ot_pdfError').style.display='block';
+}
+function generujKarteZgonu(preview=false){
+ if(!validate(kzRequired,"kz_errorBox","kz_errorList"))return;
+ const n=generujNumerDokumentu("KZ");
+ const kc=(l,x,cl='')=>`<div class="kz-cell ${cl}"><b>${l}</b>${x||'—'}</div>`;
+ const body=`<div class="kz-doc"><div class="kz-watermark">DOKUMENT FIKCYJNY</div>
+ <div class="kz-head"><div><div class="kz-brand">Med<span>Docs</span></div><div>Dokumentacja scenariusza</div></div><div style="text-align:center"><strong>KARTA INFORMACYJNA ZGONU</strong><br><span style="font-size:6.5px;color:#666">autorski układ MedDocs</span></div><div>Numer dokumentu MedDocs<br><strong>${n}</strong></div></div>
+ <div class="kz-title">KARTA ZGONU</div><div class="kz-sub">formularz fikcyjny — układ inspirowany formalną dokumentacją medyczną, nie jest drukiem urzędowym</div>
+ <div class="kz-warning">DOKUMENT FIKCYJNY — ROLEPLAY • NIE JEST URZĘDOWĄ KARTĄ ZGONU ANI PODSTAWĄ REJESTRACJI ZGONU</div>
+ <div class="kz-sec"><h2>I. Dane osoby</h2><div class="kz-grid">${kc('Imię',showValue('kz_imie'))}${kc('Nazwisko',showValue('kz_nazwisko'))}${kc('PESEL / identyfikator',showValue('kz_pesel'))}${kc('Data urodzenia',formatDatePL(value('kz_urodzenie')))}</div></div>
+ <div class="kz-sec"><h2>II. Informacje o zdarzeniu</h2><div class="kz-grid">${kc('Data zdarzenia',formatDatePL(value('kz_data')))}${kc('Godzina',showValue('kz_godzina'))}${kc('Miejsce',showValue('kz_miejsce'),'kz-span2')}</div></div>
+ <div class="kz-sec"><h2>III. Okoliczności scenariusza</h2><div class="kz-text">${showMultiline('kz_okolicznosci')}</div></div>
+ <div class="kz-sec"><h2>IV. Dodatkowe informacje</h2><div class="kz-text">${showMultiline('kz_uwagi')}</div></div>
+ <div class="kz-sec"><h2>V. Osoba sporządzająca dokument</h2><div class="kz-grid">${kc('Imię i nazwisko',showValue('kz_osoba'),'kz-span2')}${kc('Funkcja / specjalizacja',showValue('kz_funkcja'))}${kc('Placówka / jednostka',showValue('kz_placowka'))}</div><div class="kz-note">Powyższe dane dotyczą wyłącznie fikcyjnego scenariusza. Formularz nie zawiera urzędowych numerów, rejestrów ani elementów państwowego wzoru karty zgonu.</div></div>
+ <div class="kz-signs"><div class="kz-sign">miejsce na fikcyjny podpis osoby sporządzającej</div><div class="kz-sign">miejsce na fikcyjną pieczęć / oznaczenie jednostki</div></div>
+ <div class="kz-foot">MedDocs • DOKUMENT FIKCYJNY — ROLEPLAY • nie jest dokumentem medycznym ani urzędowym</div></div>`;
+ const w=openPrint('Karta zgonu - MedDocs',body+(preview?'<div class="preview-note">PODGLĄD — dokument nie został zapisany</div>':'<button class="print" onclick="window.print()">Zapisz jako PDF</button>'),kartaZgonuStyle());if(!w)document.getElementById('kz_pdfError').style.display='block';
+}
+function wyczyscNowy(prefix){if(!confirm("Czy na pewno chcesz wyczyścić formularz?"))return;document.querySelectorAll(`[id^="${prefix}_"]`).forEach(e=>{if(e.tagName==="INPUT"||e.tagName==="TEXTAREA"){if(e.type==="checkbox"||e.type==="radio")e.checked=false;else e.value="";}else if(e.tagName==="SELECT")e.selectedIndex=0;e.classList.remove("field-error")});const dateId={km:"km_data",ot:"ot_data",kz:"kz_data"}[prefix];ustawDateReset(dateId)}
 
 </script>
 
